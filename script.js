@@ -93,6 +93,18 @@ if ('IntersectionObserver' in window) {
   revealEls.forEach(el => el.classList.add('revealed'));
 }
 
+/* ---- Sticky bottom bar — hide when footer is visible ---- */
+const stickyBar = document.getElementById('sticky-bar');
+if (stickyBar) {
+  const footer = document.getElementById('site-footer');
+  const checkBar = () => {
+    const footerTop = footer.getBoundingClientRect().top;
+    stickyBar.classList.toggle('hidden', footerTop < window.innerHeight + 80);
+  };
+  window.addEventListener('scroll', checkBar, { passive: true });
+  checkBar();
+}
+
 /* ---- Smooth scroll for anchor links (offset for sticky header) ---- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', e => {
